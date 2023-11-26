@@ -1,17 +1,13 @@
 package com.argentinaprograma.grupo8.trabajointegrador.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.List;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +19,7 @@ public class Cliente {
     private String nombre;
     private String apellido;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<ClienteServicio> clienteServicios;
 }
+

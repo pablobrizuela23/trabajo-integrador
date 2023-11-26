@@ -1,11 +1,10 @@
 package com.argentinaprograma.grupo8.trabajointegrador.modelo;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -29,4 +28,7 @@ public class Incidente {
     private EstadoEnum estado;
 
     private String consideraciones;
+
+    @OneToMany(mappedBy = "incidente", cascade = CascadeType.ALL)
+    private List<DetalleIncidente> detallesIncidentes;
 }
