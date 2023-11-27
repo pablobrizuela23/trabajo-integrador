@@ -31,9 +31,4 @@ public class EspecialidadService {
         return especialidadRepository.save(especialidad);
 
     }
-
-//    public List<Especialidad> buscarEspecialidadPorDescripcion(String descripcion){
-//
-//        return especialidadRepository.findByDescripcionEspecialidad(descripcion);
-//    }
 }

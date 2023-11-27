@@ -54,11 +54,12 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrabajoIntegradorApplication.class, args);
+		System.out.println("anda");
 	}
 
 	@Override
 	public void run(String... args) {
-		/*// Crear instancias de cada clase con sus atributos
+		// Crear instancias de cada clase con sus atributos
 
 		// Crear tres instancias de Cliente
 		Cliente cliente1 = new Cliente();
@@ -286,10 +287,10 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente1);
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente2);
-		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente3);*/
+		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente3);
 
 		// Realizar las consultas solicitadas
-/*
+
 		int ultimosNDias = 30; // Definir el número de días
 
 		// a. Quién fue el técnico con más incidentes resueltos en los últimos N días
@@ -299,8 +300,8 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 			System.out.println("Técnico con más incidentes resueltos en los últimos " + ultimosNDias + " días: " + tecnicoMasIncidentes.getNombre());
 		} else {
 			System.out.println("No se encontraron técnicos con incidentes resueltos en los últimos " + ultimosNDias + " días.");
-		}*/
-/*
+		}
+
 		// b. Quién fue el técnico con más incidentes resueltos de una determinada especialidad en los últimos N días
 		int especialidadId = 1; // Reemplazar con el ID de la especialidad deseada
 		List<Tecnico> tecnicosMasIncidentesEspecialidadUltimosNDias = tecnicoService.obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(especialidadId, ultimosNDias);
@@ -309,14 +310,14 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 			System.out.println("Técnico con más incidentes resueltos de la especialidad en los últimos " + ultimosNDias + " días: " + tecnicoMasIncidentesEspecialidad.getNombre());
 		} else {
 			System.out.println("No se encontraron técnicos con incidentes resueltos de la especialidad en los últimos " + ultimosNDias + " días.");
-		}*/
+		}
 
-		/*// c. Quién fue el técnico que más rápido resolvió los incidentes
+		// c. Quién fue el técnico que más rápido resolvió los incidentes
 		Tecnico tecnicoMasRapido = tecnicoService.obtenerTecnicoConResolucionMasRapida();
 		if (tecnicoMasRapido != null) {
 			System.out.println("Técnico que más rápido resolvió los incidentes: " + tecnicoMasRapido.getNombre());
 		} else {
 			System.out.println("No se encontraron técnicos con incidentes resueltos.");
-		}*/
+		}
 	}
 }

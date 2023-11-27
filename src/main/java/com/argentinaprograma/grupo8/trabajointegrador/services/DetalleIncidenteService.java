@@ -34,8 +34,4 @@ public class DetalleIncidenteService {
     public void eliminarDetalleIncidentePorId(Integer id) {
         detalleIncidenteRepository.deleteById(id);
     }
-
-    public Tecnico obtenerTecnicoQueMasRapidoResolvioIncidentesEnUltimosNDias(Date startDate, Date endDate) {
-        return detalleIncidenteRepository.findTecnicoQueMasRapidoResolvioIncidentesEnUltimosNDias(startDate, endDate);
-    }
 }

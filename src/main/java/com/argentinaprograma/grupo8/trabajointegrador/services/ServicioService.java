@@ -32,9 +32,4 @@ public class ServicioService {
         return servicioRepository.save(servicio);
 
     }
-
-//    public List<Servicio> buscarServicioPorDescripcion(String descripcion){
-//
-//        return servicioRepository.findByDescripcionServicio(descripcion);
-//    }
 }

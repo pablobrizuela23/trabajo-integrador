@@ -11,11 +11,4 @@ import java.util.Date;
 
 @Repository
 public interface DetalleIncidenteRepository extends JpaRepository<DetalleIncidente, Integer> {
-
-    @Query("SELECT i.tecnico FROM Incidente i " +
-            "WHERE i.estado = 'FINALIZADO' " +
-            "AND i.fechaEstimadaResolucion >= :startDate " +
-            "AND i.fechaEstimadaResolucion <= :endDate " +
-            "ORDER BY TIMESTAMPDIFF(HOUR, i.fechaIngreso, i.fechaEstimadaResolucion) ASC")
-    Tecnico findTecnicoQueMasRapidoResolvioIncidentesEnUltimosNDias(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 }

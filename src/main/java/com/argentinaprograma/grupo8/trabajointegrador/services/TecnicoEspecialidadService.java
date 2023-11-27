@@ -34,8 +34,4 @@ public class TecnicoEspecialidadService {
     public void eliminarTecnicoEspecialidadPorId(Integer id) {
         tecnicoEspecialidadRepository.deleteById(id);
     }
-
-    public Tecnico obtenerTecnicoConMasIncidentesDeEspecialidadEnUltimosNDias(int especialidadId, Date startDate, Date endDate) {
-        return tecnicoEspecialidadRepository.findTecnicoConMasIncidentesResueltosDeEspecialidadEnUltimosNDias(especialidadId, startDate, endDate);
-    }
 }

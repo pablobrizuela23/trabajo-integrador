@@ -41,4 +41,8 @@ public class Incidente {
     @OneToOne
     @JoinColumn(name = "idTecnico")
     private Tecnico tecnico;
+
+    @ManyToOne
+    @JoinColumn(name = "idEspecialidad")
+    private Especialidad especialidad;
 }

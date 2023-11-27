@@ -21,10 +21,11 @@ public class TecnicoService {
 
     private IncidenteService incidenteService;
     @Autowired
-    public TecnicoService(TecnicoRepository tecnicoRepository) {
+    public TecnicoService(TecnicoRepository tecnicoRepository, EspecialidadService especialidadService,IncidenteService incidenteService) {
         this.tecnicoRepository = tecnicoRepository;
+        this.especialidadService = especialidadService;
+        this.incidenteService= incidenteService;
     }
-
     public List<Tecnico> obtenerTecnicosConMasIncidentesResueltosUltimosNDias(int dias) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -dias);
@@ -36,30 +37,31 @@ public class TecnicoService {
         return null;
     }
 
-  /*  public List<Tecnico> obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(int especialidadId, int ultimosNDias) {
+    public List<Tecnico> obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(int especialidadId, int ultimosNDias) {
         // Obtener la especialidad por su ID
+        Optional<Especialidad> especialidadOptional = especialidadService.obtenerEspecialidadPorId(especialidadId);
 
-
-        Optional<Especialidad> especialidad = especialidadService.obtenerEspecialidadPorId(especialidadId);
-        if (especialidad == null) {
+        if (especialidadOptional.isEmpty()) {
             // Manejar el caso cuando la especialidad no existe
             return Collections.emptyList(); // O cualquier otro manejo de error que necesites
         }
 
+        Especialidad especialidad = especialidadOptional.get();
+
         // Obtener los incidentes resueltos para la especialidad en los últimos N días
-       // List<Incidente> incidentesResueltos = incidenteService.obtenerIncidentesResueltosPorEspecialidadYDias(especialidad, ultimosNDias);
+        List<Incidente> incidentesResueltos = incidenteService.obtenerIncidentesResueltosPorEspecialidadYDias(Optional.of(especialidad), ultimosNDias);
 
         // Crear un mapa para contar la cantidad de incidentes resueltos por técnico
-        Map<Tecnico, Integer> mapaIncidentesPorTecnico = new HashMap<>();
+        Map<Tecnico, Long> mapaIncidentesPorTecnico = incidentesResueltos.stream()
+                .collect(Collectors.groupingBy(Incidente::getTecnico, Collectors.counting()));
 
-        // Iterar sobre los incidentes y contar la cantidad por técnico
-        for (Incidente incidente : incidentesResueltos) {
-            Tecnico tecnico = incidente.getTecnico();
-            mapaIncidentesPorTecnico.put(tecnico, mapaIncidentesPorTecnico.getOrDefault(tecnico, 0) + 1);
+        if (mapaIncidentesPorTecnico.isEmpty()) {
+            // Manejar el caso cuando no hay incidentes resueltos para la especialidad en los últimos N días
+            return Collections.emptyList();
         }
 
         // Encontrar el máximo número de incidentes resueltos
-        int maxIncidentes = Collections.max(mapaIncidentesPorTecnico.values());
+        long maxIncidentes = Collections.max(mapaIncidentesPorTecnico.values());
 
         // Filtrar los técnicos que tienen el máximo número de incidentes resueltos
         List<Tecnico> tecnicosConMasIncidentes = mapaIncidentesPorTecnico.entrySet().stream()
@@ -68,7 +70,7 @@ public class TecnicoService {
                 .collect(Collectors.toList());
 
         return tecnicosConMasIncidentes;
-    }*/
+    }
 
     public List<Tecnico> obtenerTecnicos(){
         return tecnicoRepository.findAll();
@@ -85,12 +87,5 @@ public class TecnicoService {
 
     }
 
-//    public List<TipoDeProblema> buscarProblemaPorDescripcion(String descripcion){
-//
-//        return tipoDeProblema.findByDescripcionProblema(descripcion);
-//    }
-
-    public Tecnico obtenerTecnicoConMasIncidentesEnUltimosNDias(Date startDate, Date endDate) {
-        return tecnicoRepository.findTecnicoConMasIncidentesResueltosEnUltimosNDias(startDate, endDate);
-    }
 }
+

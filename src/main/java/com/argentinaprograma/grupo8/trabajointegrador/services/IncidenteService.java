@@ -1,11 +1,16 @@
 package com.argentinaprograma.grupo8.trabajointegrador.services;
 
+import com.argentinaprograma.grupo8.trabajointegrador.modelo.Especialidad;
+import com.argentinaprograma.grupo8.trabajointegrador.modelo.EstadoEnum;
 import com.argentinaprograma.grupo8.trabajointegrador.modelo.Incidente;
 import com.argentinaprograma.grupo8.trabajointegrador.repositories.IncidenteRepository;
 import com.argentinaprograma.grupo8.trabajointegrador.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +38,23 @@ public class IncidenteService {
 
     }
 
-//    public List<TipoDeProblema> buscarProblemaPorDescripcion(String descripcion){
-//
-//        return tipoDeProblema.findByDescripcionProblema(descripcion);
-//    }
+    public List<Incidente> obtenerIncidentesResueltosPorEspecialidadYDias(Optional<Especialidad> especialidad, int ultimosNDias) {
+        Date fechaLimite = calcularFechaLimite(ultimosNDias);
+
+        List<Incidente> incidentes = incidenteRepository.findByEstadoAndFechaEstimadaResolucionGreaterThanAndEspecialidad(
+                EstadoEnum.FINALIZADO, fechaLimite, especialidad);
+        return incidentes;
+    }
+
+    public static Date calcularFechaLimite(int ultimosNDias) {
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Restar el número de días
+        LocalDate fechaLimite = fechaActual.minusDays(ultimosNDias);
+
+        // Convertir de LocalDate a Date
+        return java.sql.Date.valueOf(fechaLimite);
+    }
+
 }
