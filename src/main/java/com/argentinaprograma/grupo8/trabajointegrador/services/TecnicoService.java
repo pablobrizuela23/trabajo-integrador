@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TecnicoService {
@@ -35,7 +36,7 @@ public class TecnicoService {
         return null;
     }
 
-    public List<Tecnico> obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(int especialidadId, int ultimosNDias) {
+  /*  public List<Tecnico> obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(int especialidadId, int ultimosNDias) {
         // Obtener la especialidad por su ID
 
 
@@ -46,7 +47,7 @@ public class TecnicoService {
         }
 
         // Obtener los incidentes resueltos para la especialidad en los últimos N días
-        List<Incidente> incidentesResueltos = incidenteService.obtenerIncidentesResueltosPorEspecialidadYDias(especialidad, ultimosNDias);
+       // List<Incidente> incidentesResueltos = incidenteService.obtenerIncidentesResueltosPorEspecialidadYDias(especialidad, ultimosNDias);
 
         // Crear un mapa para contar la cantidad de incidentes resueltos por técnico
         Map<Tecnico, Integer> mapaIncidentesPorTecnico = new HashMap<>();
@@ -67,7 +68,7 @@ public class TecnicoService {
                 .collect(Collectors.toList());
 
         return tecnicosConMasIncidentes;
-    }
+    }*/
 
     public List<Tecnico> obtenerTecnicos(){
         return tecnicoRepository.findAll();
@@ -88,4 +89,8 @@ public class TecnicoService {
 //
 //        return tipoDeProblema.findByDescripcionProblema(descripcion);
 //    }
+
+    public Tecnico obtenerTecnicoConMasIncidentesEnUltimosNDias(Date startDate, Date endDate) {
+        return tecnicoRepository.findTecnicoConMasIncidentesResueltosEnUltimosNDias(startDate, endDate);
+    }
 }

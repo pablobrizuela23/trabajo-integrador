@@ -1,9 +1,12 @@
 package com.argentinaprograma.grupo8.trabajointegrador.services;
 
+import com.argentinaprograma.grupo8.trabajointegrador.modelo.Tecnico;
 import com.argentinaprograma.grupo8.trabajointegrador.modelo.TecnicoEspecialidad;
 import com.argentinaprograma.grupo8.trabajointegrador.repositories.TecnicoEspecialidadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,5 +33,9 @@ public class TecnicoEspecialidadService {
 
     public void eliminarTecnicoEspecialidadPorId(Integer id) {
         tecnicoEspecialidadRepository.deleteById(id);
+    }
+
+    public Tecnico obtenerTecnicoConMasIncidentesDeEspecialidadEnUltimosNDias(int especialidadId, Date startDate, Date endDate) {
+        return tecnicoEspecialidadRepository.findTecnicoConMasIncidentesResueltosDeEspecialidadEnUltimosNDias(especialidadId, startDate, endDate);
     }
 }

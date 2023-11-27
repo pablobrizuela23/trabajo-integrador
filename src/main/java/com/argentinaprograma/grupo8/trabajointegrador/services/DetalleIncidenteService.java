@@ -1,9 +1,12 @@
 package com.argentinaprograma.grupo8.trabajointegrador.services;
 
 import com.argentinaprograma.grupo8.trabajointegrador.modelo.DetalleIncidente;
+import com.argentinaprograma.grupo8.trabajointegrador.modelo.Tecnico;
 import com.argentinaprograma.grupo8.trabajointegrador.repositories.DetalleIncidenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,5 +33,9 @@ public class DetalleIncidenteService {
 
     public void eliminarDetalleIncidentePorId(Integer id) {
         detalleIncidenteRepository.deleteById(id);
+    }
+
+    public Tecnico obtenerTecnicoQueMasRapidoResolvioIncidentesEnUltimosNDias(Date startDate, Date endDate) {
+        return detalleIncidenteRepository.findTecnicoQueMasRapidoResolvioIncidentesEnUltimosNDias(startDate, endDate);
     }
 }
