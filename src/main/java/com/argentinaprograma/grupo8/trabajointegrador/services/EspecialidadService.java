@@ -2,7 +2,7 @@ package com.argentinaprograma.grupo8.trabajointegrador.services;
 
 import com.argentinaprograma.grupo8.trabajointegrador.modelo.Especialidad;
 import com.argentinaprograma.grupo8.trabajointegrador.repositories.EspecialidadRepository;
-import com.argentinaprograma.grupo8.trabajointegrador.repositories.TipoDeProblema;
+import com.argentinaprograma.grupo8.trabajointegrador.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

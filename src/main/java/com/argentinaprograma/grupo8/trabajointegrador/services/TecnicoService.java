@@ -1,22 +1,24 @@
 package com.argentinaprograma.grupo8.trabajointegrador.services;
 
+import com.argentinaprograma.grupo8.trabajointegrador.modelo.Especialidad;
+import com.argentinaprograma.grupo8.trabajointegrador.services.*;
+import com.argentinaprograma.grupo8.trabajointegrador.modelo.Incidente;
 import com.argentinaprograma.grupo8.trabajointegrador.modelo.Tecnico;
 import com.argentinaprograma.grupo8.trabajointegrador.repositories.TecnicoRepository;
-import com.argentinaprograma.grupo8.trabajointegrador.repositories.TipoDeProblema;
+import com.argentinaprograma.grupo8.trabajointegrador.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TecnicoService {
     private TecnicoRepository tecnicoRepository;
+    private EspecialidadService especialidadService;
 
+    private IncidenteService incidenteService;
     @Autowired
     public TecnicoService(TecnicoRepository tecnicoRepository) {
         this.tecnicoRepository = tecnicoRepository;
@@ -34,7 +36,37 @@ public class TecnicoService {
     }
 
     public List<Tecnico> obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(int especialidadId, int ultimosNDias) {
-        return null;
+        // Obtener la especialidad por su ID
+
+
+        Optional<Especialidad> especialidad = especialidadService.obtenerEspecialidadPorId(especialidadId);
+        if (especialidad == null) {
+            // Manejar el caso cuando la especialidad no existe
+            return Collections.emptyList(); // O cualquier otro manejo de error que necesites
+        }
+
+        // Obtener los incidentes resueltos para la especialidad en los últimos N días
+        List<Incidente> incidentesResueltos = incidenteService.obtenerIncidentesResueltosPorEspecialidadYDias(especialidad, ultimosNDias);
+
+        // Crear un mapa para contar la cantidad de incidentes resueltos por técnico
+        Map<Tecnico, Integer> mapaIncidentesPorTecnico = new HashMap<>();
+
+        // Iterar sobre los incidentes y contar la cantidad por técnico
+        for (Incidente incidente : incidentesResueltos) {
+            Tecnico tecnico = incidente.getTecnico();
+            mapaIncidentesPorTecnico.put(tecnico, mapaIncidentesPorTecnico.getOrDefault(tecnico, 0) + 1);
+        }
+
+        // Encontrar el máximo número de incidentes resueltos
+        int maxIncidentes = Collections.max(mapaIncidentesPorTecnico.values());
+
+        // Filtrar los técnicos que tienen el máximo número de incidentes resueltos
+        List<Tecnico> tecnicosConMasIncidentes = mapaIncidentesPorTecnico.entrySet().stream()
+                .filter(entry -> entry.getValue() == maxIncidentes)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        return tecnicosConMasIncidentes;
     }
 
     public List<Tecnico> obtenerTecnicos(){

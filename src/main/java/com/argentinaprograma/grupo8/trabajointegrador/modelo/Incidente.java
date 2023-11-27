@@ -2,9 +2,7 @@ package com.argentinaprograma.grupo8.trabajointegrador.modelo;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -29,6 +27,18 @@ public class Incidente {
 
     private String consideraciones;
 
-    @OneToMany(mappedBy = "incidente", cascade = CascadeType.ALL)
-    private List<DetalleIncidente> detallesIncidentes;
+    @ManyToOne
+    @JoinColumn(name = "idCliente")
+    private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "idServicio")
+    private Servicio servicio;
+
+    @OneToOne(mappedBy = "incidente", cascade = CascadeType.ALL)
+    private DetalleIncidente detalleIncidente;
+
+    @OneToOne
+    @JoinColumn(name = "idTecnico")
+    private Tecnico tecnico;
 }
