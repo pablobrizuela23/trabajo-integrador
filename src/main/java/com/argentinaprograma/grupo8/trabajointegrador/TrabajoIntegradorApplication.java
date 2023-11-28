@@ -96,31 +96,6 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		clienteService.guardarCliente(cliente2);
 		clienteService.guardarCliente(cliente3);
 
-		// Crear tres instancias de Cliente adicionales
-		Cliente cliente4 = new Cliente();
-		cliente4.setCuit(2468013579L);
-		cliente4.setEmail("cliente4@example.com");
-		cliente4.setRazonSocial("Razón Social Cliente 4");
-		cliente4.setNombre("Nombre Cliente 4");
-		cliente4.setApellido("Apellido Cliente 4");
-		clienteService.guardarCliente(cliente4);
-
-		Cliente cliente5 = new Cliente();
-		cliente5.setCuit(1122334455L);
-		cliente5.setEmail("cliente5@example.com");
-		cliente5.setRazonSocial("Razón Social Cliente 5");
-		cliente5.setNombre("Nombre Cliente 5");
-		cliente5.setApellido("Apellido Cliente 5");
-		clienteService.guardarCliente(cliente5);
-
-		Cliente cliente6 = new Cliente();
-		cliente6.setCuit(9988776655L);
-		cliente6.setEmail("cliente6@example.com");
-		cliente6.setRazonSocial("Razón Social Cliente 6");
-		cliente6.setNombre("Nombre Cliente 6");
-		cliente6.setApellido("Apellido Cliente 6");
-		clienteService.guardarCliente(cliente6);
-
 		// Crear tres instancias de Especialidad con todos sus atributos
 		Especialidad especialidad1 = new Especialidad();
 		especialidad1.setNombre("Especialidad 1");
@@ -344,67 +319,6 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente1);
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente2);
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente3);
-/*
-		Incidente incidente4 = new Incidente();
-		incidente4.setTitulo("Incidente 4");
-		incidente4.setDescripcion("Descripción del incidente 4");
-		incidente4.setFechaIngreso(new Date()); // Fecha actual
-		LocalDate hace25Dias = LocalDate.now().minusDays(25); // Obtener la fecha de hace 25 días
-		Date fechaHace25Dias = Date.from(hace25Dias.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-		incidente4.setFechaEstimadaResolucion(fechaHace25Dias);
-		incidente4.setEstado(EstadoEnum.FINALIZADO);
-		incidente4.setConsideraciones("Consideraciones del incidente 4");
-		incidente4.setCliente(cliente4);
-		incidente4.setServicio(servicio1);
-		incidente4.setTecnico(tecnico1);
-
-		incidenteService.guardarIncidente(incidente4);
-
-
-		Incidente incidente5 = new Incidente();
-		incidente5.setTitulo("Incidente 5");
-		incidente5.setDescripcion("Descripción del incidente 5");
-		incidente5.setFechaIngreso(new Date()); // Fecha actual
-		incidente5.setEstado(EstadoEnum.FINALIZADO);
-		incidente5.setConsideraciones("Consideraciones del incidente 5");
-		incidente5.setCliente(cliente5);
-		incidente5.setServicio(servicio1);
-		incidente5.setTecnico(tecnico1);
-		incidente5.setFechaEstimadaResolucion(new Date()); // Fecha actual
-
-		DetalleIncidente detalleIncidente4 = new DetalleIncidente();
-		detalleIncidente4.setDescripcion("Detalle del incidente 5");
-		detalleIncidente4.setIncidente(incidente5);
-		detalleIncidente4.setServicio(servicio1);
-		detalleIncidente4.setTipoProblema(tipoDeProblema1);
-
-		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente4);
-		incidenteService.guardarIncidente(incidente5);
-
-
-		Incidente incidente6 = new Incidente();
-		incidente6.setTitulo("Incidente 6");
-		incidente6.setDescripcion("Descripción del incidente 6");
-		incidente6.setFechaIngreso(new Date()); // Fecha actual
-		LocalDate fechaSiguiente = LocalDate.now().plusDays(1); // Obtener la fecha de mañana
-		Date fechaSiguienteDate = Date.from(fechaSiguiente.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-		incidente6.setFechaEstimadaResolucion(fechaSiguienteDate);
-		incidente6.setEstado(EstadoEnum.FINALIZADO);
-		incidente6.setConsideraciones("Consideraciones del incidente 6");
-		incidente6.setCliente(cliente6);
-		incidente6.setServicio(servicio1);
-		incidente6.setTecnico(tecnico1);
-
-		DetalleIncidente detalleIncidente5 = new DetalleIncidente();
-		detalleIncidente5.setDescripcion("Detalle del incidente 6");
-		detalleIncidente5.setIncidente(incidente6);
-		detalleIncidente5.setServicio(servicio1);
-		detalleIncidente5.setTipoProblema(tipoDeProblema1);
-
-		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente5);
-		incidenteService.guardarIncidente(incidente6);*/
 
 
 		// Realizar las consultas solicitadas
@@ -421,7 +335,7 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		}
 
 		// b. Quién fue el técnico con más incidentes resueltos de una determinada especialidad en los últimos N días
-		int especialidadId = 5; // Reemplazar con el ID de la especialidad deseada
+		int especialidadId = 3; // Reemplazar con el ID de la especialidad deseada
 		List<Tecnico> tecnicosMasIncidentesEspecialidadUltimosNDias = tecnicoService.obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(especialidadId, ultimosNDias);
 		if (!tecnicosMasIncidentesEspecialidadUltimosNDias.isEmpty()) {
 			Tecnico tecnicoMasIncidentesEspecialidad = tecnicosMasIncidentesEspecialidadUltimosNDias.get(0);
