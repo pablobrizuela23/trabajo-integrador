@@ -22,22 +22,15 @@ public class IncidenteService {
     public IncidenteService(IncidenteRepository incidenteRepository) {
         this.incidenteRepository = incidenteRepository;
     }
-
     public List<Incidente> obtenerIncidentes(){
         return incidenteRepository.findAll();
-
     }
-
     public Optional<Incidente> obtenerProblemaPorId(Integer id){
         return incidenteRepository.findById(id);
-
     }
-
     public Incidente guardarIncidente(Incidente incidente){
         return incidenteRepository.save(incidente);
-
     }
-
     public List<Incidente> obtenerIncidentesResueltosPorEspecialidadYDias(Optional<Especialidad> especialidad, int ultimosNDias) {
         Date fechaLimite = calcularFechaLimite(ultimosNDias);
 
@@ -45,16 +38,9 @@ public class IncidenteService {
                 EstadoEnum.FINALIZADO, fechaLimite, especialidad);
         return incidentes;
     }
-
     public static Date calcularFechaLimite(int ultimosNDias) {
-        // Obtener la fecha actual
         LocalDate fechaActual = LocalDate.now();
-
-        // Restar el número de días
         LocalDate fechaLimite = fechaActual.minusDays(ultimosNDias);
-
-        // Convertir de LocalDate a Date
         return java.sql.Date.valueOf(fechaLimite);
     }
-
 }
