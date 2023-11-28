@@ -67,9 +67,7 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		// Crear instancias de cada clase con sus atributos
-
-		// Crear tres instancias de Cliente
+		// Crea  instancias de Cliente
 		Cliente cliente1 = new Cliente();
 		cliente1.setCuit(12345678901L);
 		cliente1.setEmail("cliente1@example.com");
@@ -91,12 +89,12 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		cliente3.setNombre("Nombre Cliente 3");
 		cliente3.setApellido("Apellido Cliente 3");
 
-		// Guardar clientes en la base de datos utilizando el servicio ClienteService
+		// Guarda clientes en la base de datos
 		clienteService.guardarCliente(cliente1);
 		clienteService.guardarCliente(cliente2);
 		clienteService.guardarCliente(cliente3);
 
-		// Crear tres instancias de Especialidad con todos sus atributos
+		// Crea instancias de Especialidad
 		Especialidad especialidad1 = new Especialidad();
 		especialidad1.setNombre("Especialidad 1");
 		especialidad1.setDescripcion("Descripción de la especialidad 1");
@@ -109,13 +107,12 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		especialidad3.setNombre("Especialidad 3");
 		especialidad3.setDescripcion("Descripción de la especialidad 3");
 
-		// Guardar las instancias de Especialidad en la base de datos
+		// Guarda instancias de Especialidad en la base de datos
 		especialidadService.guardarEspecialidad(especialidad1);
 		especialidadService.guardarEspecialidad(especialidad2);
 		especialidadService.guardarEspecialidad(especialidad3);
 
-
-		// Crear tres instancias de TipoDeProblema con todos sus atributos
+		// Crea instancias de TipoDeProblema
 		TipoDeProblema tipoDeProblema1 = new TipoDeProblema();
 		tipoDeProblema1.setTipo("Tipo 1");
 		tipoDeProblema1.setTiempoEstimado(30);
@@ -131,12 +128,12 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		tipoDeProblema3.setTiempoEstimado(60);
 		tipoDeProblema3.setTiempoMaximo(120);
 
-		// Guardar las instancias de TipoDeProblema en la base de datos
+		// Guarda TipoDeProblema en la base de datos
 		tipoDeProblemaService.guardarTipoDeProblema(tipoDeProblema1);
 		tipoDeProblemaService.guardarTipoDeProblema(tipoDeProblema2);
 		tipoDeProblemaService.guardarTipoDeProblema(tipoDeProblema3);
 
-		// Crear tres instancias de Servicio con todos sus atributos
+		// Crea instancias de Servicio
 		Servicio servicio1 = new Servicio();
 		servicio1.setNombre("Servicio 1");
 		servicio1.setDescripcion("Descripción del Servicio 1");
@@ -153,24 +150,24 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		servicioService.guardarServicio(servicio2);
 		servicioService.guardarServicio(servicio3);
 
-		// Crear tres instancias de ClienteServicio con todos sus atributos
+		// Crea instancias de ClienteServicio
 		ClienteServicio clienteServicio1 = new ClienteServicio();
-		clienteServicio1.setCliente(cliente1); // Suponiendo que tienes un objeto Cliente llamado cliente1
-		clienteServicio1.setServicio(servicio1); // Suponiendo que tienes un objeto Servicio llamado servicio1
+		clienteServicio1.setCliente(cliente1);
+		clienteServicio1.setServicio(servicio1);
 
 		ClienteServicio clienteServicio2 = new ClienteServicio();
-		clienteServicio2.setCliente(cliente2); // Suponiendo que tienes un objeto Cliente llamado cliente2
-		clienteServicio2.setServicio(servicio2); // Suponiendo que tienes un objeto Servicio llamado servicio2
+		clienteServicio2.setCliente(cliente2);
+		clienteServicio2.setServicio(servicio2);
 
 		ClienteServicio clienteServicio3 = new ClienteServicio();
-		clienteServicio3.setCliente(cliente3); // Suponiendo que tienes un objeto Cliente llamado cliente3
-		clienteServicio3.setServicio(servicio3); // Suponiendo que tienes un objeto Servicio llamado servicio3
+		clienteServicio3.setCliente(cliente3);
+		clienteServicio3.setServicio(servicio3);
 
 		clienteServicioService.guardarClienteServicio(clienteServicio1);
 		clienteServicioService.guardarClienteServicio(clienteServicio2);
 		clienteServicioService.guardarClienteServicio(clienteServicio3);
 
-		// Crear tres instancias de Tecnico
+		// Crea instancias de Tecnico
 		Tecnico tecnico1 = new Tecnico();
 		tecnico1.setNombre("Nombre Técnico 1");
 		tecnico1.setApellido("Apellido Técnico 1");
@@ -187,7 +184,7 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		tecnicoService.guardarTecnico(tecnico2);
 		tecnicoService.guardarTecnico(tecnico1);
 
-		// Crear tres instancias de MedioDeComunicacion
+		// instancias de MedioDeComunicacion
 		MedioDeComunicacion medioDeComunicacion1 = new MedioDeComunicacion();
 		medioDeComunicacion1.setMedio(MedioEnum.EMAIL);
 		medioDeComunicacion1.setContacto("contacto1@ejemplo.com");
@@ -204,7 +201,7 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		medioDeComunicacionService.guardarMedioDeComunicacion(medioDeComunicacion2);
 		medioDeComunicacionService.guardarMedioDeComunicacion(medioDeComunicacion3);
 
-		// Crear tres instancias de TecnicoEspecialidad con los objetos previamente creados
+		// instancias de TecnicoEspecialidad
 		TecnicoEspecialidad tecnicoEspecialidad1 = new TecnicoEspecialidad();
 		tecnicoEspecialidad1.setTecnico(tecnico1);
 		tecnicoEspecialidad1.setEspecialidad(especialidad1);
@@ -220,8 +217,6 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		tecnicoEspecialidadService.guardarTecnicoEspecialidad(tecnicoEspecialidad1);
 		tecnicoEspecialidadService.guardarTecnicoEspecialidad(tecnicoEspecialidad2);
 		tecnicoEspecialidadService.guardarTecnicoEspecialidad(tecnicoEspecialidad3);
-
-		// Suponiendo que tienes instancias de TipoDeProblema y Especialidad previamente creadas: tipoDeProblema1, tipoDeProblema2, tipoDeProblema3, especialidad1, especialidad2, especialidad3
 
 		ProblemaEspecialidad problemaEspecialidad1 = new ProblemaEspecialidad();
 		problemaEspecialidad1.setTipoDeProblema(tipoDeProblema1);
@@ -239,7 +234,7 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		problemaEspecialidadService.guardarProblemaEspecialidad(problemaEspecialidad2);
 		problemaEspecialidadService.guardarProblemaEspecialidad(problemaEspecialidad3);
 
-		// Crear tres instancias de Incidente
+		// Crea instancias de Incidente
 		Incidente incidente1 = new Incidente();
 		incidente1.setTitulo("Incidente 1");
 		incidente1.setDescripcion("Descripción del incidente 1");
@@ -291,12 +286,12 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 					return Date.from(fechaEstimada.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Convertir LocalDate a Date
 				}).apply(5) // Fecha estimada de resolución: 5 días después
 		);
-// Guardar instancias de Incidente en la base de datos
+		// Guarda instancias en la base de datos
 		incidenteService.guardarIncidente(incidente1);
 		incidenteService.guardarIncidente(incidente2);
 		incidenteService.guardarIncidente(incidente3);
 
-// Crear tres instancias de DetalleIncidente
+		// instancias de DetalleIncidente
 		DetalleIncidente detalleIncidente1 = new DetalleIncidente();
 		detalleIncidente1.setDescripcion("Detalle del incidente 1");
 		detalleIncidente1.setIncidente(incidente1);
@@ -315,17 +310,16 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		detalleIncidente3.setServicio(servicio3);
 		detalleIncidente3.setTipoProblema(tipoDeProblema3);
 
-// Guardar instancias de DetalleIncidente en la base de datos
+		// Guarda instancias en la base de datos
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente1);
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente2);
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente3);
 
+		// consultas
 
-		// Realizar las consultas solicitadas
+		int ultimosNDias = 30;
 
-		int ultimosNDias = 30; // Definir el número de días
-
-		// a. Quién fue el técnico con más incidentes resueltos en los últimos N días
+		// a) Quién fue el técnico con más incidentes resueltos en los últimos N días
 		List<Tecnico> tecnicosMasIncidentesUltimosNDias = tecnicoService.obtenerTecnicosConMasIncidentesResueltosUltimosNDias(ultimosNDias);
 		if (!tecnicosMasIncidentesUltimosNDias.isEmpty()) {
 			Tecnico tecnicoMasIncidentes = tecnicosMasIncidentesUltimosNDias.get(0);
@@ -334,8 +328,8 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 			dibujarCaja("No se encontraron técnicos con incidentes resueltos en los últimos " + ultimosNDias + " días.");
 		}
 
-		// b. Quién fue el técnico con más incidentes resueltos de una determinada especialidad en los últimos N días
-		int especialidadId = 3; // Reemplazar con el ID de la especialidad deseada
+		// b) Quién fue el técnico con más incidentes resueltos de una determinada especialidad en los últimos N días
+		int especialidadId = 3; //  ID de la especialidad
 		List<Tecnico> tecnicosMasIncidentesEspecialidadUltimosNDias = tecnicoService.obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(especialidadId, ultimosNDias);
 		if (!tecnicosMasIncidentesEspecialidadUltimosNDias.isEmpty()) {
 			Tecnico tecnicoMasIncidentesEspecialidad = tecnicosMasIncidentesEspecialidadUltimosNDias.get(0);
@@ -344,7 +338,7 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 			dibujarCaja("No se encontraron técnicos con incidentes resueltos de la especialidad en los últimos " + ultimosNDias + " días.");
 		}
 
-		// c. Quién fue el técnico que más rápido resolvió los incidentes
+		// c) Quién fue el técnico que más rápido resolvió los incidentes
 		Tecnico tecnicoMasRapido = tecnicoService.obtenerTecnicoConResolucionMasRapida();
 		if (tecnicoMasRapido != null) {
 			dibujarCaja("Técnico que más rápido resolvió los incidentes: " + tecnicoMasRapido.getNombre());
@@ -355,10 +349,10 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 	public static void dibujarCaja(String texto) {
 		Consumer<String> drawBox = s -> {
 			System.out.print(CYAN + "+" + "-".repeat(s.length()+2) + "+" + RESET);
-			System.out.println(); // Salto de línea
+			System.out.println();
 			System.out.println(RED + "| " + s + " |" + RESET);
 			System.out.print(CYAN + "+" + "-".repeat(s.length()+2 ) + "+" + RESET);
-			System.out.println(); // Salto de línea
+			System.out.println();
 		};
 
 		drawBox.accept(texto);

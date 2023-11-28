@@ -20,16 +20,11 @@ public class ServicioService {
 
     public List<Servicio> obtenerServicios(){
         return servicioRepository.findAll();
-
     }
-
     public Optional<Servicio> obtenerServicioPorId(Integer id){
         return servicioRepository.findById(id);
-
     }
-
     public Servicio guardarServicio(Servicio servicio){
         return servicioRepository.save(servicio);
-
     }
 }

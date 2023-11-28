@@ -17,12 +17,10 @@ public class TipoDeProblemaService {
         this.tipoDeProblemaRepository = tipoDeProblemaRepository;
     }
 
-    // Método para guardar un tipo de problema
     public TipoDeProblema guardarTipoDeProblema(TipoDeProblema tipoDeProblema) {
         return tipoDeProblemaRepository.save(tipoDeProblema);
     }
 
-    // Método para obtener todos los tipos de problema
     public List<TipoDeProblema> obtenerTodosLosTiposDeProblema() {
         return tipoDeProblemaRepository.findAll();
     }

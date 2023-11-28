@@ -17,10 +17,8 @@ import java.util.Optional;
 public interface IncidenteRepository extends JpaRepository<Incidente,Integer> {
     List<Incidente> findByFechaEstimadaResolucionAfter(Date fecha);
 
-    // Método para obtener incidentes resueltos en un rango de tiempo
     List<Incidente> findByEstadoAndFechaEstimadaResolucionGreaterThan(String estado, Date fechaEstimadaResolucion);
 
-    // Método para obtener incidentes resueltos en un rango de tiempo y para una especialidad dada
     List<Incidente> findByEstadoAndFechaEstimadaResolucionGreaterThanAndEspecialidad(
             EstadoEnum estado, Date fechaEstimadaResolucion, Optional<Especialidad> especialidad);
 }

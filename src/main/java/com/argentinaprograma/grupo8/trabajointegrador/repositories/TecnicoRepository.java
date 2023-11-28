@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Pageable;
 import java.util.Date;
 import java.util.List;
-
 @Repository
 public interface TecnicoRepository extends JpaRepository<Tecnico,Integer> {
     @Query("SELECT i.tecnico FROM Incidente i WHERE i.estado = 'FINALIZADO' AND i.fechaEstimadaResolucion > :fechaIngreso GROUP BY i.tecnico ORDER BY COUNT(i) DESC")

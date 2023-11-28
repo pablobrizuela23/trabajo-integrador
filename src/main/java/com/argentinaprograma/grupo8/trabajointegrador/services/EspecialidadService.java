@@ -16,19 +16,13 @@ public class EspecialidadService {
     public EspecialidadService(EspecialidadRepository especialidadRepository) {
         this.especialidadRepository = especialidadRepository;
     }
-
     public List<Especialidad> obtenerEspecialidad(){
         return especialidadRepository.findAll();
-
     }
-
     public Optional<Especialidad> obtenerEspecialidadPorId(Integer id){
         return especialidadRepository.findById(id);
-
     }
-
     public Especialidad guardarEspecialidad(Especialidad especialidad){
         return especialidadRepository.save(especialidad);
-
     }
 }

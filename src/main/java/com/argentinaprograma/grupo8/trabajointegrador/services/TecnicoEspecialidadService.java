@@ -18,19 +18,15 @@ public class TecnicoEspecialidadService {
     public TecnicoEspecialidadService(TecnicoEspecialidadRepository tecnicoEspecialidadRepository) {
         this.tecnicoEspecialidadRepository = tecnicoEspecialidadRepository;
     }
-
     public List<TecnicoEspecialidad> obtenerTodosTecnicosEspecialidad() {
         return tecnicoEspecialidadRepository.findAll();
     }
-
     public Optional<TecnicoEspecialidad> obtenerTecnicoEspecialidadPorId(Integer id) {
         return tecnicoEspecialidadRepository.findById(id);
     }
-
     public TecnicoEspecialidad guardarTecnicoEspecialidad(TecnicoEspecialidad tecnicoEspecialidad) {
         return tecnicoEspecialidadRepository.save(tecnicoEspecialidad);
     }
-
     public void eliminarTecnicoEspecialidadPorId(Integer id) {
         tecnicoEspecialidadRepository.deleteById(id);
     }
