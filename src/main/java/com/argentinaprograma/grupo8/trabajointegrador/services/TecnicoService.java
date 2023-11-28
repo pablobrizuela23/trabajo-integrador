@@ -34,7 +34,25 @@ public class TecnicoService {
     }
 
     public Tecnico obtenerTecnicoConResolucionMasRapida() {
-        return null;
+        // Variables para almacenar la fecha estimada más temprana y el técnico asociado
+        Date fechaMasTemprana = null;
+        Tecnico tecnicoMasRapido = null;
+
+        // Obtener todos los incidentes (o podrías tener una función para obtenerlos)
+        List<Incidente> incidentes = incidenteService.obtenerIncidentes();
+
+        // Iterar a través de todos los incidentes para encontrar el más rápido
+        for (Incidente incidente : incidentes) {
+            Date fechaEstimada = incidente.getFechaEstimadaResolucion();
+
+            // Verificar si la fecha actual es menor a la almacenada o si es la primera fecha encontrada
+            if (fechaEstimada != null && (fechaMasTemprana == null || fechaEstimada.before(fechaMasTemprana))) {
+                fechaMasTemprana = fechaEstimada; // Actualizar la fecha más temprana
+                tecnicoMasRapido = incidente.getTecnico(); // Obtener el técnico asociado al incidente más rápido
+            }
+        }
+
+        return tecnicoMasRapido; // Devolver el técnico con la resolución más rápida
     }
 
     public List<Tecnico> obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(int especialidadId, int ultimosNDias) {

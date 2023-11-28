@@ -45,4 +45,11 @@ public class Incidente {
     @ManyToOne
     @JoinColumn(name = "idEspecialidad")
     private Especialidad especialidad;
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public void setFechaEstimadaResolucion(Date fechaEstimadaResolucion) {
+        this.fechaEstimadaResolucion = fechaEstimadaResolucion;
+    }
 }

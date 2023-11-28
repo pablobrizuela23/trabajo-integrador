@@ -8,9 +8,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 @SpringBootApplication
 public class TrabajoIntegradorApplication implements CommandLineRunner {
@@ -27,6 +32,9 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 	private final TecnicoEspecialidadService tecnicoEspecialidadService;
 	private final ProblemaEspecialidadService problemaEspecialidadService;
 
+	public static final String RESET = "\u001B[0m";
+	public static final String RED = "\u001B[31m";
+	public static final String CYAN = "\u001B[36m";
 	@Autowired
 	public TrabajoIntegradorApplication(TecnicoService tecnicoService,
 										IncidenteService incidenteService,
@@ -87,6 +95,31 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		clienteService.guardarCliente(cliente1);
 		clienteService.guardarCliente(cliente2);
 		clienteService.guardarCliente(cliente3);
+
+		// Crear tres instancias de Cliente adicionales
+		Cliente cliente4 = new Cliente();
+		cliente4.setCuit(2468013579L);
+		cliente4.setEmail("cliente4@example.com");
+		cliente4.setRazonSocial("Razón Social Cliente 4");
+		cliente4.setNombre("Nombre Cliente 4");
+		cliente4.setApellido("Apellido Cliente 4");
+		clienteService.guardarCliente(cliente4);
+
+		Cliente cliente5 = new Cliente();
+		cliente5.setCuit(1122334455L);
+		cliente5.setEmail("cliente5@example.com");
+		cliente5.setRazonSocial("Razón Social Cliente 5");
+		cliente5.setNombre("Nombre Cliente 5");
+		cliente5.setApellido("Apellido Cliente 5");
+		clienteService.guardarCliente(cliente5);
+
+		Cliente cliente6 = new Cliente();
+		cliente6.setCuit(9988776655L);
+		cliente6.setEmail("cliente6@example.com");
+		cliente6.setRazonSocial("Razón Social Cliente 6");
+		cliente6.setNombre("Nombre Cliente 6");
+		cliente6.setApellido("Apellido Cliente 6");
+		clienteService.guardarCliente(cliente6);
 
 		// Crear tres instancias de Especialidad con todos sus atributos
 		Especialidad especialidad1 = new Especialidad();
@@ -235,38 +268,60 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		Incidente incidente1 = new Incidente();
 		incidente1.setTitulo("Incidente 1");
 		incidente1.setDescripcion("Descripción del incidente 1");
-		incidente1.setFechaIngreso(new Date()); // Aquí asignamos la fecha actual, puedes usar la que corresponda
+		incidente1.setFechaIngreso(new Date());
 		incidente1.setEstado(EstadoEnum.INCOMPLETO);
 		incidente1.setConsideraciones("Consideraciones del incidente 1");
 		incidente1.setCliente(cliente1);
 		incidente1.setServicio(servicio1);
 		incidente1.setTecnico(tecnico1);
-
+		incidente1.setEspecialidad(especialidad1);
+		incidente1.setFechaEstimadaResolucion(
+				((Function<Integer, Date>) dias -> {
+					LocalDate fechaActual = LocalDate.now(); // Obtener la fecha actual
+					LocalDate fechaEstimada = fechaActual.plusDays(dias); // Sumar 'dias' días a la fecha actual
+					return Date.from(fechaEstimada.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Convertir LocalDate a Date
+				}).apply(7) // Fecha estimada de resolución: 7 días después
+		);
 		Incidente incidente2 = new Incidente();
 		incidente2.setTitulo("Incidente 2");
 		incidente2.setDescripcion("Descripción del incidente 2");
-		incidente2.setFechaIngreso(new Date()); // Aquí asignamos la fecha actual, puedes usar la que corresponda
+		incidente2.setFechaIngreso(new Date());
 		incidente2.setEstado(EstadoEnum.EN_PROCESO);
 		incidente2.setConsideraciones("Consideraciones del incidente 2");
 		incidente2.setCliente(cliente2);
 		incidente2.setServicio(servicio2);
 		incidente2.setTecnico(tecnico2);
-
+		incidente2.setEspecialidad(especialidad2);
+		incidente2.setFechaEstimadaResolucion(
+				((Function<Integer, Date>) dias -> {
+					LocalDate fechaActual = LocalDate.now(); // Obtener la fecha actual
+					LocalDate fechaEstimada = fechaActual.plusDays(dias); // Sumar 'dias' días a la fecha actual
+					return Date.from(fechaEstimada.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Convertir LocalDate a Date
+				}).apply(10) // Fecha estimada de resolución: 10 días después
+		);
 		Incidente incidente3 = new Incidente();
 		incidente3.setTitulo("Incidente 3");
 		incidente3.setDescripcion("Descripción del incidente 3");
-		incidente3.setFechaIngreso(new Date()); // Aquí asignamos la fecha actual, puedes usar la que corresponda
+		incidente3.setFechaIngreso(new Date());
 		incidente3.setEstado(EstadoEnum.FINALIZADO);
 		incidente3.setConsideraciones("Consideraciones del incidente 3");
 		incidente3.setCliente(cliente3);
 		incidente3.setServicio(servicio3);
 		incidente3.setTecnico(tecnico3);
-
+		incidente3.setEspecialidad(especialidad3);
+		incidente3.setFechaEstimadaResolucion(
+				((Function<Integer, Date>) dias -> {
+					LocalDate fechaActual = LocalDate.now(); // Obtener la fecha actual
+					LocalDate fechaEstimada = fechaActual.plusDays(dias); // Sumar 'dias' días a la fecha actual
+					return Date.from(fechaEstimada.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Convertir LocalDate a Date
+				}).apply(5) // Fecha estimada de resolución: 5 días después
+		);
+// Guardar instancias de Incidente en la base de datos
 		incidenteService.guardarIncidente(incidente1);
 		incidenteService.guardarIncidente(incidente2);
 		incidenteService.guardarIncidente(incidente3);
 
-		// Crear tres instancias de DetalleIncidente
+// Crear tres instancias de DetalleIncidente
 		DetalleIncidente detalleIncidente1 = new DetalleIncidente();
 		detalleIncidente1.setDescripcion("Detalle del incidente 1");
 		detalleIncidente1.setIncidente(incidente1);
@@ -285,9 +340,72 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		detalleIncidente3.setServicio(servicio3);
 		detalleIncidente3.setTipoProblema(tipoDeProblema3);
 
+// Guardar instancias de DetalleIncidente en la base de datos
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente1);
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente2);
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente3);
+/*
+		Incidente incidente4 = new Incidente();
+		incidente4.setTitulo("Incidente 4");
+		incidente4.setDescripcion("Descripción del incidente 4");
+		incidente4.setFechaIngreso(new Date()); // Fecha actual
+		LocalDate hace25Dias = LocalDate.now().minusDays(25); // Obtener la fecha de hace 25 días
+		Date fechaHace25Dias = Date.from(hace25Dias.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+		incidente4.setFechaEstimadaResolucion(fechaHace25Dias);
+		incidente4.setEstado(EstadoEnum.FINALIZADO);
+		incidente4.setConsideraciones("Consideraciones del incidente 4");
+		incidente4.setCliente(cliente4);
+		incidente4.setServicio(servicio1);
+		incidente4.setTecnico(tecnico1);
+
+		incidenteService.guardarIncidente(incidente4);
+
+
+		Incidente incidente5 = new Incidente();
+		incidente5.setTitulo("Incidente 5");
+		incidente5.setDescripcion("Descripción del incidente 5");
+		incidente5.setFechaIngreso(new Date()); // Fecha actual
+		incidente5.setEstado(EstadoEnum.FINALIZADO);
+		incidente5.setConsideraciones("Consideraciones del incidente 5");
+		incidente5.setCliente(cliente5);
+		incidente5.setServicio(servicio1);
+		incidente5.setTecnico(tecnico1);
+		incidente5.setFechaEstimadaResolucion(new Date()); // Fecha actual
+
+		DetalleIncidente detalleIncidente4 = new DetalleIncidente();
+		detalleIncidente4.setDescripcion("Detalle del incidente 5");
+		detalleIncidente4.setIncidente(incidente5);
+		detalleIncidente4.setServicio(servicio1);
+		detalleIncidente4.setTipoProblema(tipoDeProblema1);
+
+		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente4);
+		incidenteService.guardarIncidente(incidente5);
+
+
+		Incidente incidente6 = new Incidente();
+		incidente6.setTitulo("Incidente 6");
+		incidente6.setDescripcion("Descripción del incidente 6");
+		incidente6.setFechaIngreso(new Date()); // Fecha actual
+		LocalDate fechaSiguiente = LocalDate.now().plusDays(1); // Obtener la fecha de mañana
+		Date fechaSiguienteDate = Date.from(fechaSiguiente.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+		incidente6.setFechaEstimadaResolucion(fechaSiguienteDate);
+		incidente6.setEstado(EstadoEnum.FINALIZADO);
+		incidente6.setConsideraciones("Consideraciones del incidente 6");
+		incidente6.setCliente(cliente6);
+		incidente6.setServicio(servicio1);
+		incidente6.setTecnico(tecnico1);
+
+		DetalleIncidente detalleIncidente5 = new DetalleIncidente();
+		detalleIncidente5.setDescripcion("Detalle del incidente 6");
+		detalleIncidente5.setIncidente(incidente6);
+		detalleIncidente5.setServicio(servicio1);
+		detalleIncidente5.setTipoProblema(tipoDeProblema1);
+
+		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente5);
+		incidenteService.guardarIncidente(incidente6);*/
+
 
 		// Realizar las consultas solicitadas
 
@@ -297,27 +415,38 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		List<Tecnico> tecnicosMasIncidentesUltimosNDias = tecnicoService.obtenerTecnicosConMasIncidentesResueltosUltimosNDias(ultimosNDias);
 		if (!tecnicosMasIncidentesUltimosNDias.isEmpty()) {
 			Tecnico tecnicoMasIncidentes = tecnicosMasIncidentesUltimosNDias.get(0);
-			System.out.println("Técnico con más incidentes resueltos en los últimos " + ultimosNDias + " días: " + tecnicoMasIncidentes.getNombre());
+			dibujarCaja("Técnico con más incidentes resueltos en los últimos " + ultimosNDias + " días: " + tecnicoMasIncidentes.getNombre());
 		} else {
-			System.out.println("No se encontraron técnicos con incidentes resueltos en los últimos " + ultimosNDias + " días.");
+			dibujarCaja("No se encontraron técnicos con incidentes resueltos en los últimos " + ultimosNDias + " días.");
 		}
 
 		// b. Quién fue el técnico con más incidentes resueltos de una determinada especialidad en los últimos N días
-		int especialidadId = 1; // Reemplazar con el ID de la especialidad deseada
+		int especialidadId = 5; // Reemplazar con el ID de la especialidad deseada
 		List<Tecnico> tecnicosMasIncidentesEspecialidadUltimosNDias = tecnicoService.obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(especialidadId, ultimosNDias);
 		if (!tecnicosMasIncidentesEspecialidadUltimosNDias.isEmpty()) {
 			Tecnico tecnicoMasIncidentesEspecialidad = tecnicosMasIncidentesEspecialidadUltimosNDias.get(0);
-			System.out.println("Técnico con más incidentes resueltos de la especialidad en los últimos " + ultimosNDias + " días: " + tecnicoMasIncidentesEspecialidad.getNombre());
+			dibujarCaja("Técnico con más incidentes resueltos de la especialidad "+ especialidadId+" en los últimos " + ultimosNDias + " días: " + tecnicoMasIncidentesEspecialidad.getNombre());
 		} else {
-			System.out.println("No se encontraron técnicos con incidentes resueltos de la especialidad en los últimos " + ultimosNDias + " días.");
+			dibujarCaja("No se encontraron técnicos con incidentes resueltos de la especialidad en los últimos " + ultimosNDias + " días.");
 		}
 
 		// c. Quién fue el técnico que más rápido resolvió los incidentes
 		Tecnico tecnicoMasRapido = tecnicoService.obtenerTecnicoConResolucionMasRapida();
 		if (tecnicoMasRapido != null) {
-			System.out.println("Técnico que más rápido resolvió los incidentes: " + tecnicoMasRapido.getNombre());
+			dibujarCaja("Técnico que más rápido resolvió los incidentes: " + tecnicoMasRapido.getNombre());
 		} else {
-			System.out.println("No se encontraron técnicos con incidentes resueltos.");
+			dibujarCaja("No se encontraron técnicos con incidentes resueltos.");
 		}
+	}
+	public static void dibujarCaja(String texto) {
+		Consumer<String> drawBox = s -> {
+			System.out.print(CYAN + "+" + "-".repeat(s.length()+2) + "+" + RESET);
+			System.out.println(); // Salto de línea
+			System.out.println(RED + "| " + s + " |" + RESET);
+			System.out.print(CYAN + "+" + "-".repeat(s.length()+2 ) + "+" + RESET);
+			System.out.println(); // Salto de línea
+		};
+
+		drawBox.accept(texto);
 	}
 }
