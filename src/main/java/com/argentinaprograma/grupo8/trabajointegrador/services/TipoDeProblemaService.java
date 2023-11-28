@@ -1,37 +1,28 @@
 package com.argentinaprograma.grupo8.trabajointegrador.services;
 
-import com.argentinaprograma.grupo8.trabajointegrador.repositories.TipoDeProblema;
+import com.argentinaprograma.grupo8.trabajointegrador.modelo.TipoDeProblema;
+import com.argentinaprograma.grupo8.trabajointegrador.repositories.TipoDeProblemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TipoDeProblemaService {
-    private TipoDeProblema tipoDeProblema;
+
+    private final TipoDeProblemaRepository tipoDeProblemaRepository;
+
     @Autowired
-    public TipoDeProblemaService(TipoDeProblema tipoDeProblema) {
-        this.tipoDeProblema = tipoDeProblema;
+    public TipoDeProblemaService(TipoDeProblemaRepository tipoDeProblemaRepository) {
+        this.tipoDeProblemaRepository = tipoDeProblemaRepository;
     }
 
-    public List<TipoDeProblema> obtenerTipoDeProblemas(){
-        return tipoDeProblema.findAll();
-
+    public TipoDeProblema guardarTipoDeProblema(TipoDeProblema tipoDeProblema) {
+        return tipoDeProblemaRepository.save(tipoDeProblema);
     }
 
-    public Optional<TipoDeProblema> obtenerProblemaPorId(Integer id){
-        return tipoDeProblema.findById(id);
-
+    public List<TipoDeProblema> obtenerTodosLosTiposDeProblema() {
+        return tipoDeProblemaRepository.findAll();
     }
 
-    public TipoDeProblema guardarTipoDeProblema(TipoDeProblema tipoDeProblema){
-    return tipoDeProblema.save(tipoDeProblema);
-
-    }
-
-//    public List<TipoDeProblema> buscarProblemaPorDescripcion(String descripcion){
-//
-//        return tipoDeProblema.findByDescripcionProblema(descripcion);
-//    }
 }

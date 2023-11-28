@@ -2,7 +2,7 @@ package com.argentinaprograma.grupo8.trabajointegrador.services;
 
 import com.argentinaprograma.grupo8.trabajointegrador.modelo.Especialidad;
 import com.argentinaprograma.grupo8.trabajointegrador.repositories.EspecialidadRepository;
-import com.argentinaprograma.grupo8.trabajointegrador.repositories.TipoDeProblema;
+import com.argentinaprograma.grupo8.trabajointegrador.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,24 +16,13 @@ public class EspecialidadService {
     public EspecialidadService(EspecialidadRepository especialidadRepository) {
         this.especialidadRepository = especialidadRepository;
     }
-
     public List<Especialidad> obtenerEspecialidad(){
         return especialidadRepository.findAll();
-
     }
-
     public Optional<Especialidad> obtenerEspecialidadPorId(Integer id){
         return especialidadRepository.findById(id);
-
     }
-
     public Especialidad guardarEspecialidad(Especialidad especialidad){
         return especialidadRepository.save(especialidad);
-
     }
-
-//    public List<Especialidad> buscarEspecialidadPorDescripcion(String descripcion){
-//
-//        return especialidadRepository.findByDescripcionEspecialidad(descripcion);
-//    }
 }
