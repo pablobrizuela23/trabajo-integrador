@@ -48,6 +48,13 @@ public class TecnicoService {
         }
         return tecnicoMasRapido; // Devolver el técnico con la resolución más rápida
     }
+    /*public Tecnico obtenerTecnicoConResolucionMasRapida() {
+        return incidenteService.obtenerIncidentes().stream()
+                .filter(incidente -> incidente.getFechaEstimadaResolucion() != null)
+                .min(Comparator.comparing(Incidente::getFechaEstimadaResolucion))
+                .map(Incidente::getTecnico)
+                .orElse(null);
+    }*/
     public List<Tecnico> obtenerTecnicosConMasIncidentesEspecialidadResueltosUltimosNDias(int especialidadId, int ultimosNDias) {
         Optional<Especialidad> especialidadOptional = especialidadService.obtenerEspecialidadPorId(especialidadId);
         if (especialidadOptional.isEmpty()) {

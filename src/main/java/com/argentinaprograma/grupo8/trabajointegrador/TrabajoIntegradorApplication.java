@@ -67,7 +67,7 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		// Crea  instancias de Cliente
+	/*	// Crea  instancias de Cliente
 		Cliente cliente1 = new Cliente();
 		cliente1.setCuit(12345678901L);
 		cliente1.setEmail("cliente1@example.com");
@@ -314,18 +314,17 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente1);
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente2);
 		detalleIncidenteService.guardarDetalleIncidente(detalleIncidente3);
-
+*/
 		// consultas
 
 		int ultimosNDias = 30;
 
-		// a) Quién fue el técnico con más incidentes resueltos en los últimos N días
-		List<Tecnico> tecnicosMasIncidentesUltimosNDias = tecnicoService.obtenerTecnicosConMasIncidentesResueltosUltimosNDias(ultimosNDias);
-		if (!tecnicosMasIncidentesUltimosNDias.isEmpty()) {
-			Tecnico tecnicoMasIncidentes = tecnicosMasIncidentesUltimosNDias.get(0);
-			dibujarCaja("Técnico con más incidentes resueltos en los últimos " + ultimosNDias + " días: " + tecnicoMasIncidentes.getNombre());
+		// c) Quién fue el técnico que más rápido resolvió los incidentes
+		Tecnico tecnicoMasRapido = tecnicoService.obtenerTecnicoConResolucionMasRapida();
+		if (tecnicoMasRapido != null) {
+			dibujarCaja("Técnico que más rápido resolvió los incidentes: " + tecnicoMasRapido.getNombre());
 		} else {
-			dibujarCaja("No se encontraron técnicos con incidentes resueltos en los últimos " + ultimosNDias + " días.");
+			dibujarCaja("No se encontraron técnicos con incidentes resueltos.");
 		}
 
 		// b) Quién fue el técnico con más incidentes resueltos de una determinada especialidad en los últimos N días
@@ -338,13 +337,15 @@ public class TrabajoIntegradorApplication implements CommandLineRunner {
 			dibujarCaja("No se encontraron técnicos con incidentes resueltos de la especialidad en los últimos " + ultimosNDias + " días.");
 		}
 
-		// c) Quién fue el técnico que más rápido resolvió los incidentes
-		Tecnico tecnicoMasRapido = tecnicoService.obtenerTecnicoConResolucionMasRapida();
-		if (tecnicoMasRapido != null) {
-			dibujarCaja("Técnico que más rápido resolvió los incidentes: " + tecnicoMasRapido.getNombre());
+		// a) Quién fue el técnico con más incidentes resueltos en los últimos N días
+		List<Tecnico> tecnicosMasIncidentesUltimosNDias = tecnicoService.obtenerTecnicosConMasIncidentesResueltosUltimosNDias(ultimosNDias);
+		if (!tecnicosMasIncidentesUltimosNDias.isEmpty()) {
+			Tecnico tecnicoMasIncidentes = tecnicosMasIncidentesUltimosNDias.get(0);
+			dibujarCaja("Técnico con más incidentes resueltos en los últimos " + ultimosNDias + " días: " + tecnicoMasIncidentes.getNombre());
 		} else {
-			dibujarCaja("No se encontraron técnicos con incidentes resueltos.");
+			dibujarCaja("No se encontraron técnicos con incidentes resueltos en los últimos " + ultimosNDias + " días.");
 		}
+
 	}
 	public static void dibujarCaja(String texto) {
 		Consumer<String> drawBox = s -> {
